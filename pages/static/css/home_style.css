@@ -1,0 +1,48 @@
+body{
+    margin: 0;
+}
+
+.hero-header {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(rgba(0, 100, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://www.researchgate.net/publication/338067371/figure/fig2/AS:838132148752384@1576837684014/Process-flow-diagram-of-simulation-in-Aspen-Hysys-adapted-from-Teng-et-al-2019.ppm');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.header-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.header-content h1 {
+    color: #E8F5E9;
+    font-size: 4rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.header-content a {
+    text-decoration: none;
+}
+
+.cta-button {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    background-color: #2E7D32;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #1B5E20;
+}

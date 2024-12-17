@@ -1,0 +1,10 @@
+id,name,mass,mass_unit,density,density_unit,molecular_weight,molecular_weight_unit,purity,purity_unit,physical_form,price,price_unit
+sugar1,Glucose,1,kg,1.54,g/cm³,180.16,g/mol,99,wt%,Crystalline,2.5,USD/kg
+sugar2,Sucrose,1,kg,1.59,g/cm³,342.30,g/mol,99.5,wt%,Crystalline,1.8,USD/kg
+sugar3,Starch,1,kg,1.50,g/cm³,162.14,g/mol,98,wt%,Powder,1.2,USD/kg
+ligno1,Cellulose,1,kg,1.50,g/cm³,162.14,g/mol,95,wt%,Fiber,1.5,USD/kg
+ligno2,Hemicellulose,1,kg,1.48,g/cm³,132.12,g/mol,90,wt%,Powder,2.0,USD/kg
+ligno3,Lignin,1,kg,1.30,g/cm³,variable,-,92,wt%,Powder,1.8,USD/kg
+waste1,Plastic Waste,1,kg,0.95,g/cm³,-,-,85,wt%,Mixed,0.5,USD/kg
+waste2,Food Waste,1,kg,1.10,g/cm³,-,-,75,wt%,Mixed,0.3,USD/kg
+waste3,Chemical Waste,1,kg,1.20,g/cm³,-,-,80,wt%,Mixed,0.4,USD/kg

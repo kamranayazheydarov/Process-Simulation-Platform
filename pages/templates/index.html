@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Process Simulation Platform</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <!-- ...existing code... -->
+</head>
+<body>
+    <div class="container">
+        <aside class="toolbar">
+            <div class="component-selector">
+                <select id="feedstockType" class="component-dropdown">
+                    <option value="">Select Feedstock Type</option>
+                    <option value="sugar">Sugar-based feedstocks</option>
+                    <option value="ligno">Lignocellulosic feedstocks</option>
+                    <option value="waste">Industrial waste</option>
+                </select>
+            </div>
+            <div id="feedstockComponents"></div>
+
+            <div class="component-selector">
+                <select id="reactorType" class="component-dropdown">
+                    <option value="">Select Reactor Type</option>
+                    <option value="batch">Batch Reactor</option>
+                    <option value="cstr">Continuous Stirred Tank</option>
+                    <option value="pfr">Plug Flow Reactor</option>
+                    <option value="fbr">Fluidized Bed Reactor</option>
+                </select>
+            </div>
+            <div id="reactorComponents"></div>
+
+            <div class="component-selector">
+                <select id="exchangerType" class="component-dropdown">
+                    <option value="">Select Heat Exchanger</option>
+                    <option value="shell">Shell and Tube</option>
+                    <option value="plate">Plate Heat Exchanger</option>
+                    <option value="spiral">Spiral Heat Exchanger</option>
+                    <option value="air">Air Cooled</option>
+                </select>
+            </div>
+            <div id="exchangerComponents"></div>
+
+            <div class="component-selector">
+                <select id="pumpType" class="component-dropdown">
+                    <option value="">Select Pump Type</option>
+                    <option value="centrifugal">Centrifugal Pump</option>
+                    <option value="positive">Positive Displacement</option>
+                    <option value="gear">Gear Pump</option>
+                    <option value="screw">Screw Pump</option>
+                </select>
+            </div>
+            <div id="pumpComponents"></div>
+
+            <div class="component-selector">
+                <select id="separatorType" class="component-dropdown">
+                    <option value="">Select Separator Type</option>
+                    <option value="distillation">Distillation Column</option>
+                    <option value="filter">Filtration Unit</option>
+                    <option value="centrifuge">Centrifuge</option>
+                    <option value="membrane">Membrane Separator</option>
+                </select>
+            </div>
+            <div id="separatorComponents"></div>
+
+            <div class="component-selector">
+                <select id="preprocessType" class="component-dropdown">
+                    <option value="">Select Pretreatment</option>
+                    <option value="grinder">Biomass Grinder</option>
+                    <option value="dryer">Dryer</option>
+                    <option value="screener">Screening Unit</option>
+                    <option value="steamer">Steam Treatment</option>
+                </select>
+            </div>
+            <div id="preprocessComponents"></div>
+
+            <div class="component-selector">
+                <select id="storageType" class="component-dropdown">
+                    <option value="">Select Storage Unit</option>
+                    <option value="tank">Storage Tank</option>
+                    <option value="silo">Biomass Silo</option>
+                    <option value="bin">Waste Bin</option>
+                    <option value="hopper">Feed Hopper</option>
+                </select>
+            </div>
+            <div id="storageComponents"></div>
+
+            <!-- Add new fermenter selector -->
+            <div class="component-selector">
+                <select id="fermenterType" class="component-dropdown">
+                    <option value="">Select Fermenter Type</option>
+                    <option value="batch">Batch Fermenter</option>
+                    <option value="continuous">Continuous Fermenter</option>
+                    <option value="airlift">Airlift Fermenter</option>
+                    <option value="packed">Packed Bed Fermenter</option>
+                </select>
+            </div>
+            <div id="fermenterComponents"></div>
+        </aside>
+        <main class="workspace">
+            <!-- Central workspace displaying process flow diagram -->
+            <svg id="flowDiagram" style="position: absolute; width: 100%; height: 100%; pointer-events: none;">
+                <defs>
+                    <marker id="arrowhead" 
+                            markerWidth="10" 
+                            markerHeight="7" 
+                            refX="9.5" 
+                            refY="3.5" 
+                            orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#3498db"/>
+                    </marker>
+                </defs>
+                <!-- SVG elements for arrows -->
+            </svg>
+            <!-- ...rest of workspace content... -->
+        </main>
+        
+        <!-- Add modals here, before the properties panel -->
+        <div id="faqModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>FAQ</h2>
+                <div class="faq-content">
+                    <h3>Frequently Asked Questions</h3>
+                    <div class="faq-item">
+                        <h4>How do I add components?</h4>
+                        <p>Select a component type from the left sidebar and drag it to the workspace.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>How do I connect components?</h4>
+                        <p>Click on a connection point (blue dots) of one component, then click on another component's connection point.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>How do I delete components?</h4>
+                        <p>Select a component and press Delete, or select multiple components with Ctrl/Cmd + Click and press Delete.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>How do I add catalysts?</h4>
+                        <p>Click on any connection line and select a catalyst from the properties panel.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="howToModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>How to Use</h2>
+                <div class="how-to-content">
+                    <h3>Quick Start Guide</h3>
+                    <ol>
+                        <li><strong>Add Components:</strong> Drag components from the left sidebar to your workspace.</li>
+                        <li><strong>Connect Components:</strong> Click connection points to create process flows.</li>
+                        <li><strong>Add Catalysts:</strong> Click on connection lines to add catalysts.</li>
+                        <li><strong>Edit Properties:</strong> Click any component to view and edit its properties.</li>
+                        <li><strong>Export:</strong> Use the PDF button to export your diagram and data.</li>
+                    </ol>
+                    <h4>Keyboard Shortcuts</h4>
+                    <ul>
+                        <li><strong>Ctrl/Cmd + F:</strong> Fit all components to view</li>
+                        <li><strong>Ctrl/Cmd + 0:</strong> Reset zoom</li>
+                        <li><strong>Delete:</strong> Remove selected items</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <aside class="properties-panel">
+            <h2>Properties</h2>
+            <div id="propertiesForm">
+                <!-- Properties will be inserted here -->
+            </div>
+        </aside>
+    </div>
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <!-- ...existing code... -->
+</body>
+</html>
